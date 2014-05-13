@@ -1,0 +1,96 @@
+<!doctype html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){			
+			var myarray = [];
+			var myJSON = "";		
+
+			$("button").click(function(e){
+				$.getJSON("camera.json", function(cameras){				
+					$.each(cameras, function(index, camera){
+						var item = {
+					        "lat": camera.lat,
+					        "lng": camera.lng,
+					        "url": camera.url
+					    };
+					    myarray.push(item);
+					});
+					myJSON = JSON.stringify(myarray);
+				});
+
+				$("p").text(myJSON);
+			});
+
+			function classify(item){
+				if (item.lng>121.0) {
+					if (item.lat>25.0) {
+						return 0;
+					}
+
+					if (item.lat>24.5) {
+						return 2;
+					}
+
+					if (item.lat>24.0) {	
+						return 4;
+					}	
+
+					if (item.lat>23.5) {
+						return 6;
+					}
+
+					if (item.lat>23.0) {
+						return 8;
+					}
+
+					if (item.lat>22.5) {
+						return 10;
+					}
+
+					if (item.lat>22.0) {
+						return 12;
+					}
+				}
+
+				else {
+					if (item.lat>24.0) {	
+						return 1;
+					}
+
+					if (item.lat>24.5) {
+						return 3;
+					}
+
+					if (item.lat>23.5) {
+						return 5;
+					}
+
+					if (item.lat>23.0) {
+						return 7;
+					}
+
+					if (item.lat>22.5) {
+						return 9;
+					}
+
+					if (item.lat>22.0) {
+						return 11;
+					}
+
+					if (item.lat>21.5) {
+						return 13;
+					}
+				}
+			}
+		});
+
+	</script>
+</head>
+<body>
+	<button>click</button>
+	<p></p>
+</body>
+</html>
+

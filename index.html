@@ -1,0 +1,47 @@
+<!doctype html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){			
+			var myarray = [];
+			var myJSON = "";
+
+			$.getJSON("cctv.json", function(cctvs){
+				$.each(cctvs, function(index, cctv){
+					var item = {
+				        "lat": cctv.lat,
+				        "lng": cctv.lng,
+				        "url": cctv.url
+				    };
+				    myarray.push(item);
+				});
+			});
+
+			$.getJSON("device.json", function(devices){
+				$.each(devices, function(index, device){
+					var item = {
+						"lat": device.wgsy,
+						"lng": device.wgsx,
+						"url": device.mobileUrl
+					};
+					myarray.push(item);
+				});
+				myJSON = JSON.stringify({myarray: myarray});
+			});
+
+			console.log(myJSON);
+			
+			$("button").click(function(e){
+				$("p").text(myJSON);
+			});
+		});
+
+	</script>
+</head>
+<body>
+	<button>click</button>
+	<p></p>
+</body>
+</html>
+
